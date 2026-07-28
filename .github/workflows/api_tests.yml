@@ -30,7 +30,7 @@ jobs:
             - name: Execute Pytest Suite with Allure
               run: |
                 python -m pytest tests/ --alluredir=allure-result -vs
-              continue-on-errror: true
+              continue-on-error: true
 
             - name: Load Allure Report History
               uses: action/checkout@v4
