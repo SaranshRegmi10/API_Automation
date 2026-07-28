@@ -1,0 +1,7 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"User API Operations","Parametrized Data Testing","Retrieve Multiple Users","0","0","3","0","0"
+"User API Operations","Parametrized Data Testing","Create Multiple Users","0","0","4","0","0"
+"","","","0","0","3","0","0"
+"User API Operation","CRUD Lifecycle","Delete User","0","0","1","0","0"
+"User API Operation","CRUD Lifecycle","Patrial User Update","0","0","1","0","0"
+"User API Operation","CRUD Lifecycle","Full User Update","0","0","1","0","0"
