@@ -14,10 +14,10 @@ jobs:
 
         steps:
             - name: Check out Repository Code
-              uses: action/checkout@v4
+              uses: actions/checkout@v4
 
             - name: Set up Python 3.11
-              uses: action/setup-python@v5 
+              uses: actions/setup-python@v5 
               with: 
                 python-version: "3.11"
                 cache: "pip"
@@ -33,7 +33,7 @@ jobs:
               continue-on-error: true
 
             - name: Load Allure Report History
-              uses: action/checkout@v4
+              uses: actions/checkout@v4
               if: always()
               with: 
                 ref: gh-pages
