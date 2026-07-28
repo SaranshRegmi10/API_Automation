@@ -1,0 +1,57 @@
+name: API Test Automation Pipeline
+
+on:
+    push:
+        branches: [ main, master ]
+    pull_request:
+        branches: [ main, master ]
+    workflow_dispatch:
+
+jobs: 
+    tests:
+        name: Run API Tests & Build Allure Report
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out Repository Code
+              uses: action/checkout@v4
+
+            - name: Set up Python 3.11
+              uses: action/setup-python@v5 
+              with: 
+                python-version: "3.11"
+                cache: "pip"
+
+            - name: Install Python Dependencies
+              run: |
+                python -m pip install --upgrade pip
+                pip install -r requirement.txt
+
+            - name: Execute Pytest Suite with Allure
+              run: |
+                python -m pytest tests/ --alluredir=allure-result -vs
+              continue-on-errror: true
+
+            - name: Load Allure Report History
+              uses: action/checkout@v4
+              if: always()
+              with: 
+                ref: gh-pages
+                path: gh-pages
+                contimue-on-error: true
+
+            - name: Build Allure Report with History
+              uses: simple-elf/allure-report-action@v1.7
+              if: always()
+              with: 
+                allure-results: allure-results
+                allure-history: allure-history
+                keep_reports: 20
+            
+            - name: Deploy Allure Report to GitHub pages
+              uses: peaceiris/actions-gh-pages@v3
+              if: always()
+              with: 
+                github_token: ${{ secrets.GITHUB_TOKEN}}
+                publish_dir: allure-history
+                publish_branch: gh-pages
